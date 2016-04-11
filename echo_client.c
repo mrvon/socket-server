@@ -14,6 +14,7 @@ static void*
 loop(void* ud) {
     struct socket_server *ss = ud;
 	struct socket_message result;
+
 	for (;;) {
 		int type = socket_server_poll(ss, &result, NULL);
 		// DO NOT use any ctrl command (socket_server_close , etc. ) in this thread.
@@ -25,16 +26,16 @@ loop(void* ud) {
             printf("%s", result.data);
 			break;
 		case SOCKET_CLOSE:
-			printf("close(%lu) [id=%d]\n",result.opaque,result.id);
+			printf("close(%lu) [id=%d]\n", result.opaque, result.id);
 			break;
 		case SOCKET_OPEN:
-			printf("open(%lu) [id=%d] %s\n",result.opaque,result.id,result.data);
+			printf("open(%lu) [id=%d] %s\n", result.opaque, result.id, result.data);
 			break;
 		case SOCKET_ERROR:
-			printf("error(%lu) [id=%d]\n",result.opaque,result.id);
+			printf("error(%lu) [id=%d]\n", result.opaque, result.id);
 			break;
 		case SOCKET_ACCEPT:
-			printf("accept(%lu) [id=%d %s] from [%d]\n",result.opaque, result.ud, result.data, result.id);
+			printf("accept(%lu) [id=%d %s] from [%d]\n", result.opaque, result.ud, result.data, result.id);
 			break;
 		}
 	}
