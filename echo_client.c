@@ -38,6 +38,8 @@ loop(void* ud) {
 			break;
 		}
 	}
+
+    return NULL;
 }
 
 int main(int argc, char const* argv[])
